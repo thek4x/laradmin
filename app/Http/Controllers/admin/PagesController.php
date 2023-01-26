@@ -72,7 +72,7 @@ class PagesController extends Controller {
         Notification::send($auth, new genelNotify($db_notif));
 
         $response = ['type' => 'success', 'title' => 'Yeni Sayfa', 'message' => 'Sayfa Başarıyla Eklendi'];
-        return redirect(route('pages.edit', $pages->id()))->with($response);
+        return redirect(route('pages.edit', $pages->id))->with($response);
     }
 
     /**
@@ -93,8 +93,8 @@ class PagesController extends Controller {
      */
     public function edit($id) {
         $categorys = Category::select('id', 'title')->get();
-        $result = PagesModel::findOrFail($id)->first();
-        $page_forms = page_forms::where('form_page', 'pages')->get();
+        $result = PagesModel::findOrFail($id);
+        $page_forms = page_forms::where('form_page', 'pages')->where('form_pageid',$id)->orWhere('form_pageid',0)->get();
         return view('admin.pages.edit', compact('categorys', 'result', 'page_forms'));
     }
 

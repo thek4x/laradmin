@@ -50,6 +50,13 @@ class PageFormsController extends Controller {
      */
     public function store(Request $request) {
 
+
+        $request->validate([
+            'form_name' => 'required|string|unique:page_forms',
+            'neweleman' => 'required|string',
+            'form_page' => 'required'
+            ],
+            ['unique' => 'bu name kullanılmaktadır. başka name yazın']);
         $page_forms = page_forms::create([
                     'form_page' => $request->form_page,
                     'form_pageid' => $request->form_pageid,
@@ -134,7 +141,9 @@ class PageFormsController extends Controller {
         $response = ['type' => 'success', 'title' => 'Form Page Silme', 'message' => 'Silme Başarılı !'];
         return redirect(route('form_pages.index'))->with($response);
     }
+
     #name kısmını unique yap
+
     public function allPages(): array {
         return [
             'role' => ['roles', 'name'],

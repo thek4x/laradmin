@@ -114,22 +114,35 @@ $(function () {
         permAddCheck();
     }, 1000);
 
+    $("#creatorForm").submit(function () {
+        if ($("#newelement").val() == '') {
+            toastr.error("önce create form ile form oluşturunuz");
+            return false;
+        } else {
+            $(".cForm").trigger('click');
+            return true;
+        }
+
+    });
+
 
     $fcdiv = $(".fcdiv").find('input,select,textarea');
-    $fcdiv.each(function (index, element) {
-        $this = $(element);
-        $input = detectForm(element.outerHTML, 'type="text"') || detectForm(element.outerHTML, 'type="number"') || detectForm(element.outerHTML, 'type="range"');
-        datavalue = $this.data('value');
-        if ($input) {            
-            if ($.trim(datavalue) != '')
-                $this.val(datavalue);
-        } else if (detectForm(element.outerHTML, 'select')) {
-            var selecctval = $(this).data('value');
-            $(this).find("option:contains('" + selecctval + "')").attr("selected", "selected");
-        } else if (detectForm(element.outerHTML, 'type="radio"') || detectForm(element.outerHTML, 'type="checkbox"') )  {
-            $(this).filter('[value="'+datavalue+'"]').attr("checked","checked");
-        }
-    });
+    if ($fcdiv.length > 0) {
+        $fcdiv.each(function (index, element) {
+            $this = $(element);
+            $input = detectForm(element.outerHTML, 'type="text"') || detectForm(element.outerHTML, 'type="number"') || detectForm(element.outerHTML, 'type="range"');
+            datavalue = $this.data('value');
+            if ($input) {
+                if ($.trim(datavalue) != '')
+                    $this.val(datavalue);
+            } else if (detectForm(element.outerHTML, 'select')) {
+                var selecctval = $(this).data('value');
+                $(this).find("option:contains('" + selecctval + "')").attr("selected", "selected");
+            } else if (detectForm(element.outerHTML, 'type="radio"') || detectForm(element.outerHTML, 'type="checkbox"')) {
+                $(this).filter('[value="' + datavalue + '"]').attr("checked", "checked");
+            }
+        });
+    }
 
 
 
