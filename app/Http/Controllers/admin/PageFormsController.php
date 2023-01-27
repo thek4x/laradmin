@@ -134,7 +134,7 @@ class PageFormsController extends Controller {
         $response = ['type' => 'success', 'title' => 'Form Page Silme', 'message' => 'Silme Başarılı !'];
         return redirect(route('form_pages.index'))->with($response);
     }
-
+    #name kısmını unique yap
     public function allPages(): array {
         return [
             'role' => ['roles', 'name'],
@@ -168,7 +168,6 @@ class PageFormsController extends Controller {
         $hamdata = $request->except('_token', 'form_page');
         $page_forms = new page_forms;
         $own = Auth::guard('admin')->user();
-
         foreach ($hamdata as $hname => $hvalue) {
             if ($request->filled($hname)) {
                 $page_forms->where('form_name', $hname)->update(['form_inputvalue' => $hvalue]);

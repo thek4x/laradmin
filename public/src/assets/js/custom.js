@@ -72,7 +72,7 @@ $(function () {
             }
         });
     }
-    
+
     function selectext(element) {
         if ($(element).index() != -1) {
             new TomSelect(element, {
@@ -92,7 +92,13 @@ $(function () {
             });
         }
     }
-
+    function detectForm($element, $find) {
+        $filter = $element.search($find);
+        if ($filter >= 0)
+            return true;
+        else
+            return false;
+    }
     selectext(".custom-select");
     selectext(".groupedselect");
 
@@ -107,4 +113,25 @@ $(function () {
     setTimeout(function () {
         permAddCheck();
     }, 1000);
+
+
+    $fcdiv = $(".fcdiv").find('input,select,textarea');
+    $fcdiv.each(function (index, element) {
+        $this = $(element);
+        $input = detectForm(element.outerHTML, 'type="text"') || detectForm(element.outerHTML, 'type="number"') || detectForm(element.outerHTML, 'type="range"');
+        datavalue = $this.data('value');
+        if ($input) {            
+            if ($.trim(datavalue) != '')
+                $this.val(datavalue);
+        } else if (detectForm(element.outerHTML, 'select')) {
+            var selecctval = $(this).data('value');
+            $(this).find("option:contains('" + selecctval + "')").attr("selected", "selected");
+        } else if (detectForm(element.outerHTML, 'type="radio"') || detectForm(element.outerHTML, 'type="checkbox"') )  {
+            $(this).filter('[value="'+datavalue+'"]').attr("checked","checked");
+        }
+    });
+
+
+
+
 });
