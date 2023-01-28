@@ -47,7 +47,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="widget-content widget-content-area">
+                             <div class="widget-content widget-content-area">
+                                <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="main-tab" data-bs-toggle="tab" data-bs-target="#main" type="button" role="tab" aria-controls="home" aria-selected="true">Slider Düzenle</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="formcreator-tab" data-bs-toggle="tab" data-bs-target="#formcreator" type="button" role="tab" aria-controls="profile" aria-selected="false">Form Creator</button>
+                                    </li>                                
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
                                 <form method='POST' action='{{ route('slider.update',$slider->id) }}' enctype="multipart/form-data">
                                 @csrf
                                     @method('PUT')
@@ -88,6 +98,22 @@
                                    
                                     <input type="submit" name="time" class="btn btn-primary" value="Gönder">
                                 </form>
+                                </div>
+                                <div class="tab-pane fade " id="formcreator" role="tabpanel" aria-labelledby="formcreator-tab">
+                                    <form method='POST' action='{{route('form_pages.save')}}'>
+                                    @if(count($page_forms)>0)
+                                    @csrf
+                                    <input type='hidden' name="form_page" value="slider" />
+                                    @include('admin.forms.page_forms')
+                                    <div style='clear:both'></div>
+                                    <div class='col-12'>
+                                        <button class='btn btn-primary float-end'>GÖNDER</button>
+                                    </div>
+                                    @else
+                                        <p class="lead text-center">Henüz burası için form oluşturulmamıştır</p>
+                                    @endif
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

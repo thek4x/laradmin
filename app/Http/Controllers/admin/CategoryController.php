@@ -10,6 +10,7 @@ use Auth;
 use App\Models\Category;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\page_forms;
 
 class CategoryController extends Controller {
 
@@ -106,7 +107,8 @@ class CategoryController extends Controller {
      */
     public function edit($id) {
         $category = Category::findOrFail($id);
-        return view('admin.category.edit', compact('category'));
+        $page_forms = page_forms::where('form_page', 'category')->where('form_pageid', 0)->orWhere('form_pageid', $id)->get();
+        return view('admin.category.edit', compact('category', 'page_forms'));
     }
 
     /**

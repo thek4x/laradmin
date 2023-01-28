@@ -9,6 +9,7 @@ use App\Notifications\genelNotify;
 Use App\Models\Admin;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Cache;
 
 class LogController extends Controller {
 
@@ -17,7 +18,11 @@ class LogController extends Controller {
     }
 
     public function index() {
-        $users = Admin::all();
+        
+        $users = Cache::remember('users','8640' , function () {            
+                    return Admin::all();
+        });
+
         return view('admin.log.index', compact('users'));
     }
 

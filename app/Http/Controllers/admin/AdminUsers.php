@@ -12,10 +12,10 @@ use Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\page_forms;
+
 class AdminUsers extends Controller {
-    
-    
-    
+
     public function __construct() {
         $this->middleware(['auth:admin', 'permission:adminusers.list'], ['only' => 'index']);
         $this->middleware(['auth:admin', 'permission:adminusers.delete'], ['only' => 'delete']);
@@ -23,8 +23,6 @@ class AdminUsers extends Controller {
         $this->middleware(['auth:admin', 'permission:adminusers.create'], ['only' => ['create']]);
     }
 
-    
-    
     /**
      * Display a listing of the resource.
      *
@@ -91,8 +89,9 @@ class AdminUsers extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
+        $page_forms = page_forms::where('form_page', 'adminusers')->where('form_pageid', 0)->orWhere('form_pageid', $id)->get();
         $user = Admin::findOrFail($id);
-        return view('admin.admins.edit', compact('user'));
+        return view('admin.admins.edit', compact('user','page_forms'));
     }
 
     /**

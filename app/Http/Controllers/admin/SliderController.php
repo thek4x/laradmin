@@ -11,7 +11,7 @@ use App\Models\Category;
 use App\Models\Slider;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
+use App\Models\page_forms;
 class SliderController extends Controller {
 
     public function __construct() {
@@ -90,7 +90,8 @@ class SliderController extends Controller {
     public function edit(Request $request, $id) {
         $kategori = Category::tree()->get()->toTree();
         $slider = Slider::findOrFail($id);
-        return view('admin.slider.edit', compact('slider', 'kategori'));
+        $page_forms = page_forms::where('form_page', 'slider')->where('form_pageid', 0)->orWhere('form_pageid', $id)->get();
+        return view('admin.slider.edit', compact('slider', 'kategori','page_forms'));
     }
 
     /**
