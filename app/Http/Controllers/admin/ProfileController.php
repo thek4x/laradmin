@@ -9,6 +9,8 @@ use Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\genelNotify;
+use App\Models\User;
+
 class ProfileController extends Controller {
 
     public $admin = '';
@@ -46,13 +48,19 @@ class ProfileController extends Controller {
         $response = ['type' => 'success', 'title' => 'Profil Güncelleme', 'message' => 'Güncelleme Başarılı !'];
         return redirect()->route('admin.profile')->with($response);
     }
-    
-    public function test(){
-        dd(Auth::guard('admin')->user());
+
+    public function test() {
+        $users = User::all();
+//        $users->append(['team', 'is_admin'])->dd();
+//        $result = $users = $users->except([1, 2, 3]);
+//        $result = $users->modelKeys();
+        $result =  $users->setVisible(['id', 'name']);
+        dd($result);
+        
     }
-    
-    public function logout(Request $request){
-         Auth::guard('admin')->logout();
+
+    public function logout(Request $request) {
+        Auth::guard('admin')->logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
