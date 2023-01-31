@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\adminLogin;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\genelNotify;
+
 use App\Models\Admin;
 
 class loginController extends Controller {
@@ -44,7 +43,7 @@ class loginController extends Controller {
             #notification'a bu durumu logla
             $db_notif['admin'] = ['type' => 'adminlogin', 'message' => $admin->username . ' giris yaptı', 'ip' => $request->ip()];
             Notification::send($admin, new genelNotify($db_notif));
-            
+
             $response = ['type' => 'success', 'title' => 'Giriş Başarılı', 'message' => 'Panele giriş yapıldı'];
             return redirect()->route('admin.admins.index')->with($response);
         } else {
@@ -54,6 +53,9 @@ class loginController extends Controller {
     }
 
     public function list() {
+
+
+
         return view('admin.user.list');
     }
 

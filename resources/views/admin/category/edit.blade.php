@@ -64,7 +64,15 @@
                                             <div class="row mb-4">
                                                 <div class="col-6">
                                                     <select id="select-beast" placeholder="Üst Kategori..." autocomplete="off" name="category_id">
-                                                        <option value="">Üst Kategori</option>                                        
+                                                        @foreach($kategori as $k)
+                                                        <optgroup label='{{$k->title}}'> 
+                                                            <option value='{{$k->id}}' {{$category->id==$k->id ? 'selected' : ''}}>{{$k->title}}</option>
+                                                            @foreach($k->children as $s)
+                                                            <option value='{{$s->id}}' {{$s->id==$category->id?'selected':''}}>{{$s->title}}</option>
+                                                            @include('admin.category.subtest',['childs'=>$s])
+                                                        @endforeach
+                                                        </optgroup>
+                                                      @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="col">

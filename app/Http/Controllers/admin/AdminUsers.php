@@ -29,6 +29,8 @@ class AdminUsers extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
+
+
         $users = Admin::all();
         return view('admin.admins.index', compact('users'));
     }
@@ -91,7 +93,7 @@ class AdminUsers extends Controller {
     public function edit($id) {
         $page_forms = page_forms::where('form_page', 'adminusers')->where('form_pageid', 0)->orWhere('form_pageid', $id)->get();
         $user = Admin::findOrFail($id);
-        return view('admin.admins.edit', compact('user','page_forms'));
+        return view('admin.admins.edit', compact('user', 'page_forms'));
     }
 
     /**

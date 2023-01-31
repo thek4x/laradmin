@@ -54,7 +54,8 @@ class ProfileController extends Controller {
 //        $users->append(['team', 'is_admin'])->dd();
 //        $result = $users = $users->except([1, 2, 3]);
 //        $result = $users->modelKeys();
-        $result =  $users->setVisible(['id', 'name']);
+//        $result =  $users->only([1, 2, 3]);
+//        $result =  $users->only([1, 2, 3]);
         dd($result);
         
     }

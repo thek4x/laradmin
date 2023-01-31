@@ -42,15 +42,6 @@ class CategoryController extends Controller {
         return view('admin.category.index', compact('category'));
     }
 
-    public function recursive($kategori) {
-        foreach ($kategori as $category) {
-            echo $category->title . ' => <br/>';
-            foreach ($category->sub_category as $sub) {
-                echo str_repeat('&nbsp;', 10) . '' . $sub->title . '<br/>';
-            }
-        }
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -106,9 +97,10 @@ class CategoryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
+        $kategori = Category::tree()->get()->toTree();
         $category = Category::findOrFail($id);
         $page_forms = page_forms::where('form_page', 'category')->where('form_pageid', 0)->orWhere('form_pageid', $id)->get();
-        return view('admin.category.edit', compact('category', 'page_forms'));
+        return view('admin.category.edit', compact('category', 'page_forms','kategori'));
     }
 
     /**

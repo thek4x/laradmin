@@ -66,9 +66,7 @@
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Keywordsler</button>
                                         </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="pageform-tab" data-bs-toggle="pill" data-bs-target="#pageform" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Keywordsler</button>
-                                        </li>
+                                      
 
                                     </ul>
                                     <hr/>
@@ -128,13 +126,7 @@
 
                                             </div>
                                         </form>
-                                        <div class="tabdiv " id="pageform">
-                                            <form method='POST' action='''>
-                                                @csrf
-                                                <input type='hidden' name="form_page" value="pages" />
-                                           @include('admin.forms.page_forms')
-                                            </form>
-                                        </div>
+                                       
                                     </div>
 
                                 </div>
