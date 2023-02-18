@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\adminLogin;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\genelNotify;
+use Illuminate\Support\Facades\Notification;
 
 use App\Models\Admin;
 

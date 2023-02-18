@@ -49,15 +49,15 @@ class ProfileController extends Controller {
         return redirect()->route('admin.profile')->with($response);
     }
 
-    public function test() {
-        $users = User::all();
-//        $users->append(['team', 'is_admin'])->dd();
-//        $result = $users = $users->except([1, 2, 3]);
-//        $result = $users->modelKeys();
-//        $result =  $users->only([1, 2, 3]);
-//        $result =  $users->only([1, 2, 3]);
-        dd($result);
+    public function test(Request $request) {
+        $users = User::query();
         
+        $result = $users->when($request->verify == 1, function ($users) {
+            $users->whereNotNull('email_verified_at');
+        });
+        
+        $result = $result->get();
+        dd($result);
     }
 
     public function logout(Request $request) {

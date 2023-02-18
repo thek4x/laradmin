@@ -14,6 +14,7 @@ use App\Http\Controllers\admin\MailController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\SliderController;
 use App\Http\Controllers\admin\PageFormsController;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Middleware\Admin;
 
 /*
@@ -85,6 +86,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
     Route::get('form_pages/{page_forms}/delete', [PageFormsController::class, 'delete'])->name('form_pages.delete');
     Route::post('form_pages/getSelectID', [PageFormsController::class, 'getSelectID'])->name('form_pages.getid');
     Route::post('form_pages/saveCreator', [PageFormsController::class, 'saveCreator'])->name('form_pages.save');
+    #users
+    Route::resource('users', UserController::class)->except('destroy');
+    Route::get('users/{id}/delete', [UserController::class, 'delete'])->name('users.delete');
 });
 
 Route::get('/', function () {
