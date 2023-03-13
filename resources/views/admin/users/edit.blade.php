@@ -16,20 +16,16 @@
                                                     <link rel='stylesheet' href="{{ asset('src/assets/css/dark/users/account-setting.css')}}" />
 @endpush
 @push('custom-js')
-
                                                         <script src="{{ asset('src/plugins/src/filepond/filepond.min.js') }}"></script>
                                                         <script src="{{ asset('src/assets/js/users/account-settings.js') }}"></script>
 @endpush
-
-
-
 @section('content')
                                                         <div class="account-settings-container layout-top-spacing">
 
                                                             <div class="account-content">
                                                                 <div class="row mb-3">
                                                                     <div class="col-md-12">
-                                                                        <h2>Güncel Profil</h2>
+                                                                        <h2>{{$user->name?$user->name:$user->username}} Profil Güncelleme</h2>
 
                                                                         <ul class="nav nav-pills" id="animateLine" role="tablist">
                                                                             <li class="nav-item" role="presentation">
@@ -46,9 +42,9 @@
                                                                     <div class="tab-pane fade active show" id="animated-underline-home" role="tabpanel" aria-labelledby="animated-underline-home-tab">
                                                                         <div class="row">
                                                                             <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
-                                                                                <form class="section general-info" method='POST' action='{{ route('adminusers.update',$user->id) }}'>
-                                                @csrf
-                                                @method('PUT')
+                                                                                <form class="section general-info" method='POST' action='{{ route('users.update',$user->id) }}'>
+            @csrf
+        @method('PUT')
                                                                                     <div class="info">
                                                                                         <h6 class="">{{ $user->username }} information</h6>
                                                                                         <div class="row">
@@ -62,6 +58,13 @@
                                                                                                                     <div class="form-group">
                                                                                                                         <label for="fullName">username</label>
                                                                                                                         <input type="text" class="form-control mb-3" id="fullName" name='username' value='{{ $user->username }}'>
+                                                                                                                    </div>
+                                                                                                                </div>
+
+                                                                                                                <div class="col-md-6">
+                                                                                                                    <div class="form-group">
+                                                                                                                        <label for="fullName">Name Surname</label>
+                                                                                                                        <input type="text" class="form-control mb-3" id="fullName" name='name' value='{{ $user->name }}'>
                                                                                                                     </div>
                                                                                                                 </div>
 
